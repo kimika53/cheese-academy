@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <!-- スライダー 追加内容 -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <!-- スライダー 追加内容 -->
+    <link rel="stylesheet" href="css/sample.css">
+    <title>じゃんけん</title>
+  
+ 
+   
+</head>
+
+<body>
+
+    <header class="banner">
+        <!-- <img id="banner" src="./img/banner.jpg" class="w-full h-full" alt=""> -->
+        <div class="">五行じゃんけん</div>
+    </header>
+
+    <main>
+        <div id="rules">
+            <div class="slider">
+                <div class="">
+                    <p>五行の【相生(そうしょう)】とは、一方の五行が、もう一方の五行を生み出す関係です。<br>五行の「行」は「めぐる」という意味を持ち、木→火→土→金→水→木……の順番で循環していると考えられています。<br>木は燃えて火を生み、力を与える側であるため、負けるとされます。火は力を受ける側であるため、勝つとされます。</p>
+                    <div class="slider-block"><img src="./css/img/sosho-img.png" alt="" class="s-img"></div>
+                </div>
+                <div>
+                    <p>五行の【相剋(そうこく)】とは、一方の五行が、もう一方の五行を攻撃する関係とされます。<br><br>矢印の元となる五行は、矢印の先の五行を剋すため、勝つとされます。<br><br>一方、矢印の先の五行は、矢印の元の五行に剋されるため、負けるとされます。</p>
+                    <div class="slider-block"><img src="./css/img/sokoku-img.png" alt="" class="s-img"></div>
+                </div>
+                <div>
+                    <p>五行の【比和(ひわ)】とは、同じ五行が重なる関係です。<br><br>木と木、火と火など、同一の五行同士、お互いの性質を強め合います。<br><br><br></p>
+                    <div class="slider-block"><img src="./css/img/hiwa-img.png" alt="" class="s-img"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="button">
+            <ul class="you"> 
+                <li>あなた</li>
+            </ul>
+            <button class="start">開始</button>
+            <ul class="rival"> 
+                <li>相手</li>
+            </ul>
+        </div>
+        <div id="guide">↓↓ お選びください ↓↓ </div>          
+        <!-- <div id="aite"></div> -->
+
+        <div class="grid-container">
+            <div id="moku" class="grid-item item1">木</div>
+            <div id="ka" class="grid-item item2">火</div>
+            <div id="do" class="grid-item item3">土</div>  
+            <div id="gon" class="grid-item item4">金</div>
+            <div id="sui" class="grid-item item5">水</div>
+        </div>
+        <div class="popup">
+            <div id="judgement">判定結果</div>
+        </div>   
+
+        
+    </main>
+
+    <footer></footer>
+    <!-- スライダー追加 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+     <!-- スライダー追加以上 -->
+    <script> 
+        $(document).ready(function(){
+            $(".slider").slick({
+                arrows:false,
+                dots:true
+            });
+            
+        });
+
+        $("#button").on("click",function(){
+            $(".grid-item").removeClass("selected");           
+            $(".grid-item").removeClass("aite");
+            $(".grid-item").removeClass("draw");
+            $("#guide").html("↓↓ お選びください ↓↓")
+            $(".popup").fadeOut("fast");
+            
+        })        
+
+
+        $("#moku").on("click",function(){
+        const you=Math.ceil(Math.random()*5);
+
+        let result=""; //let view=""; 
+        if(you==1){
+            // view='木';
+            result="引き分け"; $("#moku").addClass("draw")
+        }
+        if(you==2){
+            // view='火'; 
+            result="あなたの負け"; $("#ka").addClass("aite")
+        }
+        if(you==3){
+            // view='土';
+            result="あなたの勝ち"; $("#do").addClass("aite")
+        }
+        if(you==4){
+            // view='金';
+            result="あなたの負け"; $("#gon").addClass("aite")
+        }
+        if(you==5){
+            // view='水';
+            result="あなたの勝ち"; $("#sui").addClass("aite")
+        }
+
+        // $("#aite").html(view);
+        $("#judgement").html(result);
+        $("#moku").addClass("selected")
+        $(".popup").addClass("show").fadeIn(4000).fadeOut(4000);
+        $("#guide").html("↑↑ 押してください ↑↑")
+        })
+
+        $("#ka").on("click",function(){
+        const you=Math.ceil(Math.random()*5);
+
+        let result=""; //let view=""; 
+        if(you==1){
+            // view='木';
+            result="あなたの勝ち"; $("#moku").addClass("aite")
+        }
+        if(you==2){
+            // view='火';
+            result="引き分け"; $("#ka").addClass("draw")
+        }
+        if(you==3){
+            // view='土';
+            result="あなたの負け"; $("#do").addClass("aite")
+        }
+        if(you==4){
+            // view='金';
+            result="あなたの勝ち"; $("#gon").addClass("aite")
+        }
+        if(you==5){
+            // view='水';
+            result="あなたの負け"; $("#sui").addClass("aite")
+        }
+
+        // $("#aite").html(view);
+        $("#judgement").html(result);
+        $("#ka").addClass("selected")
+        $(".popup").addClass("show").fadeIn(4000).fadeOut(4000);
+        $("#guide").html("↑↑ 押してください ↑↑")
+        })
+
+        $("#do").on("click",function(){
+        const you=Math.ceil(Math.random()*5); 
+
+        let result=""; //let view=""; 
+        if(you==1){
+            // view='木';
+            result="あなたの負け"; $("#moku").addClass("aite")
+        }
+        if(you==2){
+            // view='火';
+            result="あなたの勝ち"; $("#ka").addClass("aite")
+        }
+        if(you==3){
+            // view='土';
+            result="引き分け"; $("#do").addClass("draw")
+        }
+        if(you==4){
+            // view='金';
+            result="あなたの負け"; $("#gon").addClass("aite")
+        }
+        if(you==5){
+            // view='水';
+            result="あなたの勝ち"; $("#sui").addClass("aite")
+        }
+
+        // $("#aite").html(view);
+        $("#judgement").html(result);
+        $("#do").addClass("selected")
+        $(".popup").addClass("show").fadeIn(4000).fadeOut(4000);
+        $("#guide").html("↑↑ 押してください ↑↑")
+        })
+
+        $("#gon").on("click",function(){
+        const you=Math.ceil(Math.random()*5); 
+
+        let result=""; //let view=""; 
+        if(you==1){
+            // view='木';
+            result="あなたの勝ち"; $("#moku").addClass("aite")
+        }
+        if(you==2){
+            // view='火';
+            result="あなたの負け"; $("#ka").addClass("aite")
+        }
+        if(you==3){
+            // view='土';
+            result="あなたの勝ち"; $("#do").addClass("aite")
+        }
+        if(you==4){
+            // view='金';
+            result="引き分け";$("#gon").addClass("draw")
+        }
+        if(you==5){
+            // view='水';
+            result="あなたの負け"; $("#sui").addClass("aite")
+        }
+
+        // $("#aite").html(view);
+        $("#judgement").html(result);
+        $("#gon").addClass("selected")
+        $(".popup").addClass("show").fadeIn(4000).fadeOut(4000);
+        $("#guide").html("↑↑ 押してください ↑↑")
+        })
+
+        $("#sui").on("click",function(){
+        const you=Math.ceil(Math.random()*5);
+
+        let result=""; //let view=""; 
+        if(you==1){
+            // view='木';
+            result="あなたの負け"; $("#moku").addClass("aite")
+        }
+        if(you==2){
+            // view='火';
+            result="あなたの勝ち"; $("#ka").addClass("aite")
+        }
+        if(you==3){
+            // view='土';
+            result="あなたの負け"; $("#do").addClass("aite")
+        }
+        if(you==4){
+            // view='金';
+            result="あなたの勝ち"; $("#gon").addClass("aite")
+        }
+        if(you==5){
+            // view='水';
+            result="引き分け"; $("sui").addClass("draw")
+        }
+
+        // $("#aite").html(view);
+        $("#judgement").html(result);
+        $("#sui").addClass("selected")
+        $(".popup").addClass("show").fadeIn(4000).fadeOut(4000);
+        $("#guide").html("↑↑ 押してください ↑↑")
+        })
+
+       
+        
+       
+            
+    </script>
+    
+</body>
+
+</html>
